@@ -18,7 +18,7 @@ typedef struct {
 
 // Protótipos
 void load(char* name, Img* pic);
-int* decToBin(int dec);
+int* decToBin(int dec, int tam);
 
 // Carrega uma imagem para a struct Img
 void load(char* name, Img* pic)
@@ -33,13 +33,13 @@ void load(char* name, Img* pic)
     printf("Load: %s (%d x %d x %d)\n", name, pic->width, pic->height, chan);
 }
 
-int* decToBin(int dec) {
+int* decToBin(int dec, int tam) {
     if( dec > 4095) {
         printf("Valor invalido para conversao, o valor maximo eh 4095");
         exit(1);
     }
     int i = 0;
-    int binValue[12];
+    int binValue[tam];
     while (dec > 0) {
 
         binValue[i] = dec % 2;
@@ -47,15 +47,24 @@ int* decToBin(int dec) {
         i++;
     }
 
-//    printf("\n[");
-//    for (int k = i - 1; k >= 0; k--){
-//
-//        printf("%d", binValue[k]);
-//
-//    }
-//    printf("]\n");
+    int binReverse[tam];
 
-    return *binValue;
+    for(int j = i; j<tam; j++){
+        binValue[j] = 0;
+    }
+
+    for(int j = 0; j<tam; j++) {
+        int k = tam-1-j;
+        binReverse[j] = binValue[k];
+    }
+
+    printf("\n[");
+    for(int j = 0; j<tam; j++) {
+        printf("%d", binReverse[j]);
+    }
+    printf("]\n");
+
+    return *binReverse;
 }
 
 int main(int argc, char** argv)
@@ -79,10 +88,25 @@ int main(int argc, char** argv)
         exit(1);
     }
 
-    int binWidth = decToBin(secreta.width);
-    int binHeight = decToBin(secreta.height);
+    printf("\nlargura: ");
+    int binWidth = decToBin(secreta.width, 12);
+    printf("altura: ");
+    int binHeight = decToBin(secreta.height, 12);
 
-    printf("largura %d, altura %d\n", base.width, base.height);
+    printf("\nlargura %d, altura %d\n", base.width, base.height);
+
+    for(int i = 0;i<)
+        int binRed = decToBin(base.img[i].r, 8);
+        int binGreen = decToBin(base.img[i].g, 8);
+        int binBlue = decToBin(base.img[i].b, 8);
+
+        binRed[7] = binWidth[0];
+        binRed[6] = binWidth[1];
+        binGreen[7] = binWidth[2];
+        binGreen[6] = binWidth[3];
+        binBlue[7] = binWidth[4];
+        binBlue[6] = binWidth[5];
+
 
     //end codigo
 
