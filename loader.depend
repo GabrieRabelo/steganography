@@ -66,3 +66,63 @@
 
 1590601523 /home/rabelo/Desktop/PUCRS/cohen/steganography/include/SOIL.h
 
+1593470004 source:/var/git/github/steganography/lib/SOIL/image_DXT.c
+	"image_DXT.h"
+	<math.h>
+	<stdlib.h>
+	<string.h>
+	<stdio.h>
+
+1593470004 /var/git/github/steganography/lib/SOIL/image_DXT.h
+
+1593470004 source:/var/git/github/steganography/lib/SOIL/image_helper.c
+	"image_helper.h"
+	<stdlib.h>
+	<math.h>
+
+1593470004 /var/git/github/steganography/lib/SOIL/image_helper.h
+
+1593470004 source:/var/git/github/steganography/lib/SOIL/SOIL.c
+	<windows.h>
+	<wingdi.h>
+	<GL/gl.h>
+	<OpenGL/gl.h>
+	<Carbon/Carbon.h>
+	<GL/gl.h>
+	"SOIL.h"
+	"stb_image_aug.h"
+	"image_helper.h"
+	"image_DXT.h"
+	<stdlib.h>
+	<string.h>
+
+1593470004 /var/git/github/steganography/lib/SOIL/SOIL.h
+
+1593470004 /var/git/github/steganography/lib/SOIL/stb_image_aug.h
+	<stdio.h>
+
+1593470004 source:/var/git/github/steganography/lib/SOIL/stb_image_aug.c
+	"stb_image_aug.h"
+	<math.h>
+	<string.h>
+	<stdio.h>
+	<stdlib.h>
+	<memory.h>
+	<assert.h>
+	<stdarg.h>
+	"stbi_DDS_aug.h"
+	"stbi_DDS_aug_c.h"
+
+1593470004 /var/git/github/steganography/lib/SOIL/stbi_DDS_aug.h
+
+1593470004 /var/git/github/steganography/lib/SOIL/stbi_DDS_aug_c.h
+
+1593643312 source:/var/git/github/steganography/main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<stdbool.h>
+	"include/SOIL.h"
+
+1593470004 /var/git/github/steganography/include/SOIL.h
+
