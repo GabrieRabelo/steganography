@@ -113,7 +113,27 @@ int main(int argc, char** argv)
     printf("Height: %d \n", base.height);
     printf("Area: %d \n", base.width * base.height);
     int y = 0;
-    for (int i = 0; y < (secreta.width * secreta.height); i += 4)
+    int i = 0;
+    int k = 0;
+
+    base.img[i].r |= secreta.width >> 10;
+    base.img[i].g |= (secreta.width >> 8) & 0b000000000011;
+    base.img[i].b |= (secreta.width >> 6) & 0b000000000011;
+    base.img[i + 1].r |= (secreta.width >> 4) & 0b000000000011;
+    base.img[i + 1].g |= (secreta.width >> 2) & 0b000000000011;
+    base.img[i + 1].b |= (secreta.width) & 0b000000000011;
+
+    base.img[i + 2].r |= secreta.height>> 10;
+    base.img[i + 2].g |= (secreta.height>> 8) & 0b000000000011;
+    base.img[i + 2].b |= (secreta.height>> 6) & 0b000000000011;
+    base.img[i + 3].r |= (secreta.height >> 4) & 0b000000000011;
+    base.img[i + 3].g |= (secreta.height >> 2) & 0b000000000011;
+    base.img[i + 3].b |= (secreta.height) & 0b000000000011;
+
+
+    i = 4;
+
+    for (;y < (secreta.width * secreta.height); i += 4)
     {
         base.img[i].r |= secreta.img[y].r >> 6;
         base.img[i].g |= ((secreta.img[y].r >> 4) & 0b00000011);
@@ -141,19 +161,19 @@ int main(int argc, char** argv)
         printf("%02X %02X,%02X", base.img[i].r, base.img[i].g, base.img[i].b);
     printf("\n\n");
 
-    for(int i = 0; i < 3; i ++) {
+    for(int i = 0; i < 4; i ++) {
         decToBin(base.img[i].r);
         decToBin(base.img[i].g);
         decToBin(base.img[i].b);
     }
 
-    printf("secreta:\n");
-
-    for(int i = 0; i < 3; i ++) {
-        decToBin(secreta.img[i].r);
-        decToBin(secreta.img[i].g);
-        decToBin(secreta.img[i].b);
-    }
+//    printf("secreta:\n");
+//
+//    for(int i = 0; i < 3; i ++) {
+//        decToBin(secreta.img[i].r);
+//        decToBin(secreta.img[i].g);
+//        decToBin(secreta.img[i].b);
+//    }
 
     printf("Teste: gravando imagem base em saida.bmp\n");
     SOIL_save_image("saida.bmp", SOIL_SAVE_TYPE_BMP,
