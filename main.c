@@ -110,7 +110,7 @@ int main(int argc, char** argv)
         width = width << 2;
 
         width |= ((base.img[1].b) & 0b00000011);
-        printf("WIDTH 6 %d\n", width);
+        printf("WIDTH %d\n", width);
 
 
         height |= ((base.img[2].r) & 0b00000011);
@@ -129,7 +129,7 @@ int main(int argc, char** argv)
         height = height << 2;
 
         height |= ((base.img[3].b) & 0b00000011);
-        printf("height 6 %d\n", height);
+        printf("height %d\n", height);
 
         printf("debug1");
 
@@ -142,7 +142,7 @@ int main(int argc, char** argv)
         printf("debug\n");
         int y = 4;
         int i = 0;
-        for (; i < (saida.width * saida.height); y += 4, i ++)
+for (; i < (saida.width * saida.height); y ++, i ++)
         {
             //r
             saida.img[i].r |= ((base.img[y].r) & 0b00000011);
@@ -154,34 +154,37 @@ int main(int argc, char** argv)
             saida.img[i].r |= ((base.img[y].b) & 0b00000011);
             saida.img[i].r = saida.img[i].r << 2;
 
-            saida.img[i].r |= ((base.img[y + 1].r) & 0b00000011);
-            saida.img[i].r = saida.img[i].r << 2;
+            y ++;
+
+            saida.img[i].r |= ((base.img[y].r) & 0b00000011);
 
             //g
-            saida.img[i].g |= ((base.img[y + 1].g) & 0b00000011);
+            saida.img[i].g |= ((base.img[y].g) & 0b00000011);
             saida.img[i].g = saida.img[i].g << 2;
 
-            saida.img[i].g |= ((base.img[y + 1].b) & 0b00000011);
+            saida.img[i].g |= ((base.img[y].b) & 0b00000011);
             saida.img[i].g = saida.img[i].g << 2;
 
-            saida.img[i].g |= ((base.img[y + 2].r) & 0b00000011);
+            y ++;
+
+            saida.img[i].g |= ((base.img[y].r) & 0b00000011);
             saida.img[i].g = saida.img[i].g << 2;
 
-            saida.img[i].g |= ((base.img[y + 2].g) & 0b00000011);
-            saida.img[i].g = saida.img[i].g << 2;
+            saida.img[i].g |= ((base.img[y].g) & 0b00000011);
 
             //b
-            saida.img[i].b |= ((base.img[y + 2].b) & 0b00000011);
+            saida.img[i].b |= ((base.img[y].b) & 0b00000011);
             saida.img[i].b = saida.img[i].b << 2;
 
-            saida.img[i].b |= ((base.img[y + 3].r) & 0b00000011);
+            y ++;
+
+            saida.img[i].b |= ((base.img[y].r) & 0b00000011);
             saida.img[i].b = saida.img[i].b << 2;
 
-            saida.img[i].b |= ((base.img[y + 3].g) & 0b00000011);
+            saida.img[i].b |= ((base.img[y].g) & 0b00000011);
             saida.img[i].b = saida.img[i].b << 2;
 
-            saida.img[i].b |= ((base.img[y + 3].b) & 0b00000011);
-            saida.img[i].b = saida.img[i].b << 2;
+            saida.img[i].b |= ((base.img[y].b) & 0b00000011);
         }
 
         printf("%d\n", i);
@@ -191,6 +194,7 @@ int main(int argc, char** argv)
         saida.width, saida.height, 3, (const unsigned char*) saida.img);
 
         free(saida.img);
+        printf("aqui\n");
         free(base.img);
         //end code
         exit(1);
@@ -291,7 +295,6 @@ int main(int argc, char** argv)
     printf("Teste: gravando imagem base em saida.bmp\n");
     SOIL_save_image("saida.bmp", SOIL_SAVE_TYPE_BMP,
                     base.width, base.height, 3, (const unsigned char*) base.img);
-
     free(base.img);
     free(secreta.img);
 }
