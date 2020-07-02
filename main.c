@@ -79,8 +79,35 @@ int main(int argc, char** argv)
         printf("decode");
 
         //start code
+        load(argv[1], &base);
+        int width;
+        int height = 0;
+//        for (int i = 0; i < 4; i ++) {
+            printf("WIDTH 1 %d\n", width);
+            width |= ((base.img[0].r) & 0b00000011);
+            width = width << 2;
 
+            printf("WIDTH 2 %d\n", width);
+            width |= ((base.img[0].g) & 0b00000011);
+            width = width << 2;
 
+            printf("WIDTH 3 %d\n", width);
+            width |= ((base.img[0].b) & 0b00000011);
+            width = width << 2;
+
+            printf("WIDTH 4 %d\n", width);
+            width |= ((base.img[1].r) & 0b00000011);
+            width = width << 2;
+
+            printf("WIDTH 5 %d\n", width);
+            width |= ((base.img[1].g) & 0b00000011);
+            width = width << 2;
+
+            printf("WIDTH 6 %d\n", width);
+            width |= ((base.img[1].b) & 0b00000011);
+
+            decToBin(width);
+//        }
 
         //end code
         exit(1);
