@@ -7,25 +7,21 @@
 #include "include/SOIL.h"
 
 // Um pixel RGB
-typedef struct
-{
+typedef struct {
     unsigned char r, g, b;
 } RGB;
 
 // Uma imagem em RGB
-typedef struct
-{
+typedef struct {
     int width, height;
     RGB* img;
 } Img;
 
 // Protótipos
 void load(char* name, Img* pic);
-void decToBin(int dec);
 
 // Carrega uma imagem para a struct Img
-void load(char* name, Img* pic)
-{
+void load(char* name, Img* pic) {
     int chan;
     pic->img = (RGB*) SOIL_load_image(name, &pic->width, &pic->height, &chan, SOIL_LOAD_RGB);
     if(!pic->img)
@@ -36,47 +32,7 @@ void load(char* name, Img* pic)
     printf("Load: %s (%d x %d x %d)\n", name, pic->width, pic->height, chan);
 }
 
-void decToBin(int dec)
-{
-    if( dec > 4095)
-    {
-        printf("Valor invalido para conversao, o valor maximo eh 4095");
-        exit(1);
-    }
-    int i = 0;
-    int binValue[8];
-    while (dec > 0)
-    {
-
-        binValue[i] = dec % 2;
-        dec = dec / 2;
-        i++;
-    }
-
-    static int binReverse[8];
-
-    for(int j = i; j<8; j++)
-    {
-        binValue[j] = 0;
-    }
-
-    for(int j = 0; j<8; j++)
-    {
-        int k = 8-1-j;
-        binReverse[j] = binValue[k];
-    }
-
-    printf("\n[");
-    for(int j = 0; j<8; j++)
-    {
-        printf("%d", binReverse[j]);
-    }
-    printf("]\n");
-
-
-}
-int main(int argc, char** argv)
-{
+int main(int argc, char** argv) {
     Img base, secreta;
     if(argc < 2)
     {
@@ -142,8 +98,7 @@ int main(int argc, char** argv)
         printf("debug\n");
         int y = 4;
         int i = 0;
-for (; i < (saida.width * saida.height); y ++, i ++)
-        {
+        for (; i < (saida.width * saida.height); y ++, i ++){
             //r
             saida.img[i].r |= ((base.img[y].r) & 0b00000011);
             saida.img[i].r = saida.img[i].r << 2;
@@ -187,16 +142,13 @@ for (; i < (saida.width * saida.height); y ++, i ++)
             saida.img[i].b |= ((base.img[y].b) & 0b00000011);
         }
 
-        printf("%d\n", i);
-
         printf("Teste: gravando imagem base em unload.bmp\n");
         SOIL_save_image("result.bmp", SOIL_SAVE_TYPE_BMP,
-        saida.width, saida.height, 3, (const unsigned char*) saida.img);
+                        saida.width, saida.height, 3, (const unsigned char*) saida.img);
 
         free(saida.img);
-        printf("aqui\n");
         free(base.img);
-        //end code
+
         exit(1);
     }
 
@@ -207,27 +159,17 @@ for (; i < (saida.width * saida.height); y ++, i ++)
     int areaBase = base.height * base.width;
     int areaSecreta = secreta.height * secreta.width;
 
-    if(areaBase/4 < areaSecreta + 24)
-    {
+    if(areaBase/4 < areaSecreta + 24){
         printf("Imagem invalida, a imagem secreta deve ter no maximo 1/4 do tamanho da imagem base");
         exit(1);
     }
 
-    for(int i = 0; i < areaBase; i++)
-    {
+    for(int i = 0; i < areaBase; i++) {
         base.img[i].r &= 0b11111100;
         base.img[i].g &= 0b11111100;
         base.img[i].b &= 0b11111100;
     }
 
-    printf("Primeiros 10 pixels da imagem base ZERADA:\n");
-    for(int i=0; i<10; i++)
-        printf("%02X,%02X,%02X", base.img[i].r, base.img[i].g, base.img[i].b);
-    printf("\n\n");
-
-    printf("Width: %d \n", base.width);
-    printf("Height: %d \n", base.height);
-    printf("Area: %d \n", base.width * base.height);
     int y = 0;
     int i = 0;
     int k = 0;
@@ -249,8 +191,7 @@ for (; i < (saida.width * saida.height); y ++, i ++)
 
     i = 4;
 
-    for (; y < (secreta.width * secreta.height); i += 4)
-    {
+    for (; y < areaSecreta; i += 4) {
         base.img[i].r |= secreta.img[y].r >> 6;
         base.img[i].g |= ((secreta.img[y].r >> 4) & 0b00000011);
         base.img[i].b |= ((secreta.img[y].r >> 2) & 0b00000011);
@@ -267,30 +208,6 @@ for (; i < (saida.width * saida.height); y ++, i ++)
         base.img[i + 3].b |= ((secreta.img[y].b) & 0b00000011);
         y++;
     }
-
-    printf("largura %d, altura %d\n", base.width, base.height);
-
-    //end codigo
-
-    printf("Primeiros 10 pixels da imagem base DEPOIS:\n");
-    for(int i=0; i<10; i++)
-        printf("%02X %02X,%02X", base.img[i].r, base.img[i].g, base.img[i].b);
-    printf("\n\n");
-
-    for(int i = 2; i < 4; i ++)
-    {
-        decToBin(base.img[i].r);
-        decToBin(base.img[i].g);
-        decToBin(base.img[i].b);
-    }
-
-//    printf("secreta:\n");
-//
-//    for(int i = 0; i < 3; i ++) {
-//        decToBin(secreta.img[i].r);
-//        decToBin(secreta.img[i].g);
-//        decToBin(secreta.img[i].b);
-//    }
 
     printf("Teste: gravando imagem base em saida.bmp\n");
     SOIL_save_image("saida.bmp", SOIL_SAVE_TYPE_BMP,
