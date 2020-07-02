@@ -11,7 +11,7 @@
 				<Option object_output="./" />
 				<Option type="1" />
 				<Option compiler="gcc" />
-				<Option parameters="earth.jpg british_summer.jpg" />
+				<Option parameters="saida.bmp" />
 				<Compiler>
 					<Add option="-O3" />
 					<Add directory="include" />

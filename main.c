@@ -81,32 +81,47 @@ int main(int argc, char** argv)
         //start code
         load(argv[1], &base);
         int width;
-        int height = 0;
+        int height;
 //        for (int i = 0; i < 4; i ++) {
-            printf("WIDTH 1 %d\n", width);
             width |= ((base.img[0].r) & 0b00000011);
             width = width << 2;
 
-            printf("WIDTH 2 %d\n", width);
             width |= ((base.img[0].g) & 0b00000011);
             width = width << 2;
 
-            printf("WIDTH 3 %d\n", width);
             width |= ((base.img[0].b) & 0b00000011);
             width = width << 2;
 
-            printf("WIDTH 4 %d\n", width);
             width |= ((base.img[1].r) & 0b00000011);
             width = width << 2;
 
-            printf("WIDTH 5 %d\n", width);
             width |= ((base.img[1].g) & 0b00000011);
             width = width << 2;
 
-            printf("WIDTH 6 %d\n", width);
             width |= ((base.img[1].b) & 0b00000011);
+            printf("WIDTH 6 %d\n", width);
+
+
+            height |= ((base.img[2].r) & 0b00000011);
+            height = height << 2;
+
+            height |= ((base.img[2].g) & 0b00000011);
+            height = height << 2;
+
+            height |= ((base.img[2].b) & 0b00000011);
+            height = height << 2;
+
+            height |= ((base.img[3].r) & 0b00000011);
+            height = height << 2;
+
+            height |= ((base.img[3].g) & 0b00000011);
+            height = height << 2;
+
+            height |= ((base.img[3].b) & 0b00000011);
+            printf("height 6 %d\n", height);
 
             decToBin(width);
+            decToBin(height);
 //        }
 
         //end code
@@ -150,9 +165,9 @@ int main(int argc, char** argv)
     base.img[i + 1].g |= (secreta.width >> 2) & 0b000000000011;
     base.img[i + 1].b |= (secreta.width) & 0b000000000011;
 
-    base.img[i + 2].r |= secreta.height>> 10;
-    base.img[i + 2].g |= (secreta.height>> 8) & 0b000000000011;
-    base.img[i + 2].b |= (secreta.height>> 6) & 0b000000000011;
+    base.img[i + 2].r |= secreta.height >> 10;
+    base.img[i + 2].g |= (secreta.height >> 8) & 0b000000000011;
+    base.img[i + 2].b |= (secreta.height >> 6) & 0b000000000011;
     base.img[i + 3].r |= (secreta.height >> 4) & 0b000000000011;
     base.img[i + 3].g |= (secreta.height >> 2) & 0b000000000011;
     base.img[i + 3].b |= (secreta.height) & 0b000000000011;
@@ -188,7 +203,7 @@ int main(int argc, char** argv)
         printf("%02X %02X,%02X", base.img[i].r, base.img[i].g, base.img[i].b);
     printf("\n\n");
 
-    for(int i = 0; i < 4; i ++) {
+    for(int i = 2; i < 4; i ++) {
         decToBin(base.img[i].r);
         decToBin(base.img[i].g);
         decToBin(base.img[i].b);
